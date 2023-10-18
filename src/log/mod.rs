@@ -4,16 +4,16 @@ use serde::Serialize;
 use serde_json::{json, Value};
 use serde_with::skip_serializing_none;
 use uuid::Uuid;
-use crate::{Error, Result};
+use crate::Result;
 use crate::ctx::Ctx;
-use crate::error::ClientError;
+use crate::web::{self, ClientError};
 
 pub async fn log_request(
     uuid: Uuid,
     req_method: Method,
     uri: Uri,
     ctx: Option<Ctx>,
-    service_error: Option<&Error>,
+    service_error: Option<&web::Error>,
     client_error: Option<ClientError>,
 ) -> Result<()> {
     let timestamp = SystemTime::now()
